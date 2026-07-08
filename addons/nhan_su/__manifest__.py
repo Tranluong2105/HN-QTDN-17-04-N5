@@ -24,8 +24,10 @@
 
     # always loaded
     'data': [
+        'data/sequence.xml',
         'security/ir.model.access.csv',
         'views/chuc_vu.xml',
+        'views/phong_ban.xml',
         'views/don_vi.xml',
         'views/nhan_vien.xml',
         'views/lich_su_cong_tac.xml',

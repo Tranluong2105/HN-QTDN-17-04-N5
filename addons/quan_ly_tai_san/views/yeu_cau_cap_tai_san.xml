@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_yeu_cau_cap_tai_san_form" model="ir.ui.view">
+            <field name="name">yeu_cau_cap_tai_san</field>
+            <field name="model">yeu_cau_cap_tai_san</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="action_gui_duyet" string="Gửi duyệt" type="object" attrs="{'invisible': [('trang_thai', '!=', 'nhap')]}" class="oe_highlight"/>
+                        <button name="action_duyet" string="Duyệt và tạo tài sản" type="object" attrs="{'invisible': [('trang_thai', 'not in', ['cho_duyet', 'da_duyet'])]}" class="oe_highlight"/>
+                        <button name="action_tu_choi" string="Từ chối" type="object" attrs="{'invisible': [('trang_thai', '!=', 'cho_duyet')]}"/>
+                        <field name="trang_thai" widget="statusbar" statusbar_visible="nhap,cho_duyet,da_duyet,tu_choi,da_tao_tai_san"/>
+                    </header>
+                    <sheet>
+                        <group col="4" string="Thông tin yêu cầu">
+                            <field name="ma_yeu_cau"/>
+                            <field name="ngay_yeu_cau"/>
+                            <field name="phong_ban_id"/>
+                            <field name="nhan_vien_yeu_cau_id" domain="[('phong_ban_id', '=', phong_ban_id)]"/>
+                            <field name="ten_tai_san"/>
+                            <field name="loai_tai_san_id" required="1"/>
+                            <field name="so_luong"/>
+                            <field name="ngan_sach"/>
+                            <field name="ly_do"/>
+                        </group>
+                        <notebook>
+                            <page string="Tài sản đã tạo">
+                                <field name="tai_san_ids"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_yeu_cau_cap_tai_san_tree" model="ir.ui.view">
+            <field name="name">yeu_cau_cap_tai_san</field>
+            <field name="model">yeu_cau_cap_tai_san</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="ma_yeu_cau"/>
+                    <field name="ngay_yeu_cau"/>
+                    <field name="phong_ban_id"/>
+                    <field name="nhan_vien_yeu_cau_id"/>
+                    <field name="ten_tai_san"/>
+                    <field name="loai_tai_san_id"/>
+                    <field name="so_luong"/>
+                    <field name="ngan_sach"/>
+                    <field name="trang_thai"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="yeu_cau_cap_tai_san_search" model="ir.ui.view">
+            <field name="name">yeu_cau_cap_tai_san_search</field>
+            <field name="model">yeu_cau_cap_tai_san</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="ma_yeu_cau"/>
+                    <field name="ten_tai_san"/>
+                    <field name="loai_tai_san_id"/>
+                    <field name="phong_ban_id"/>
+                    <field name="nhan_vien_yeu_cau_id"/>
+                    <group expand="0" string="Nhóm">
+                        <filter string="Trạng thái" name="group_trang_thai" context="{'group_by':'trang_thai'}"/>
+                        <filter string="Phòng ban" name="group_phong_ban" context="{'group_by':'phong_ban_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_yeu_cau_cap_tai_san" model="ir.actions.act_window">
+            <field name="name">Yêu cầu cấp tài sản</field>
+            <field name="res_model">yeu_cau_cap_tai_san</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="yeu_cau_cap_tai_san_search"/>
+        </record>
+    </data>
+</odoo>

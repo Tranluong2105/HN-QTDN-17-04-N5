@@ -1,0 +1,20 @@
+{
+    'name': "quan_ly_tai_san",
+    'summary': "Quản lý yêu cầu cấp phát và vòng đời tài sản",
+    'description': "Quản lý yêu cầu cấp tài sản, tài sản, điều chuyển và thanh lý.",
+    'author': "My Company",
+    'website': "http://www.yourcompany.com",
+    'category': 'Operations',
+    'version': '0.1',
+    'depends': ['base', 'nhan_su'],
+    'data': [
+        'data/sequence.xml',
+        'security/ir.model.access.csv',
+        'views/loai_tai_san.xml',
+        'views/yeu_cau_cap_tai_san.xml',
+        'views/tai_san.xml',
+        'views/dieu_chuyen_tai_san.xml',
+        'views/thanh_ly_tai_san.xml',
+        'views/menu.xml',
+    ],
+}

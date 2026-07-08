@@ -9,15 +9,21 @@
                     <sheet>
                         <div class="oe_read_only" style="font-size:25px">Nhân viên</div>
                         <group col="4" string="Thông tin chung">
+                            <field name="ma_nhan_vien"/>
                             <field name="ho_ten_dem"/>
                             <field name="ten"/>
-                            <field name="ho_va_ten"/>
+                            <field name="ho_ten_day_du"/>
                             <field name="ma_dinh_danh"/>
+                            <field name="chuc_vu"/>
+                            <field name="phong_ban_id"/>
+                            <field name="user_id"/>
                             <field name="ngay_sinh"/>
+                            <field name="gioi_tinh"/>
                             <field name="tuoi"/>
-                            <field name="so_nguoi_bang_tuoi"/>
-                            <field name="que_quan"/>
+                            <field name="trang_thai"/>
+                            <field name="so_dien_thoai"/>
                             <field name="email"/>
+                            <field name="dia_chi"/>
                             <field name="anh" widget="image"/>
                         </group>
                         <notebook>
@@ -39,15 +45,13 @@
             <field name="model">nhan_vien</field>
             <field name="arch" type="xml">
                 <tree>
-                    <field name="ma_dinh_danh"/>
-                    <field name="ho_ten_dem"/>
-                    <field name="ten"/>
-                    <field name="ho_va_ten"/>
-                    <field name="ngay_sinh"/>
-                    <field name="tuoi"/>
-                    <field name="so_nguoi_bang_tuoi"/>
-                    <field name="que_quan"/>
+                    <field name="ma_nhan_vien"/>
+                    <field name="ho_ten_day_du"/>
+                    <field name="chuc_vu"/>
+                    <field name="phong_ban_id"/>
+                    <field name="so_dien_thoai"/>
                     <field name="email"/>
+                    <field name="trang_thai"/>
                 </tree>
             </field>
         </record>
@@ -56,12 +60,17 @@
             <field name="model">nhan_vien</field>
             <field name="arch" type="xml">
                 <search>
-                    <field name="ma_dinh_danh"/>
-                    <field name="ho_va_ten"/>
-                    <field name="ngay_sinh"/>
-                    <field name="tuoi"/>
-                    <field name="que_quan"/>
+                    <field name="ma_nhan_vien"/>
+                    <field name="ho_ten_day_du"/>
+                    <field name="phong_ban_id"/>
+                    <field name="chuc_vu"/>
                     <field name="email"/>
+                    <filter string="Đang làm" name="dang_lam" domain="[('trang_thai','=','dang_lam')]"/>
+                    <filter string="Nghỉ việc" name="nghi_viec" domain="[('trang_thai','=','nghi_viec')]"/>
+                    <group expand="0" string="Nhóm">
+                        <filter string="Phòng ban" name="group_phong_ban" context="{'group_by':'phong_ban_id'}"/>
+                        <filter string="Chức vụ" name="group_chuc_vu" context="{'group_by':'chuc_vu'}"/>
+                    </group>
                 </search>
             </field>
         </record>

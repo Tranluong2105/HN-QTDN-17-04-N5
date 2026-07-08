@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <menuitem id="menu_quan_ly_tai_san_root" name="Quản lý tài sản" sequence="20"/>
+        <menuitem id="menu_yeu_cau_cap_tai_san" name="Yêu cầu cấp tài sản" parent="menu_quan_ly_tai_san_root" action="action_yeu_cau_cap_tai_san" sequence="1"/>
+        <menuitem id="menu_tai_san" name="Tài sản" parent="menu_quan_ly_tai_san_root" action="action_tai_san" sequence="2"/>
+        <menuitem id="menu_dieu_chuyen_tai_san" name="Điều chuyển tài sản" parent="menu_quan_ly_tai_san_root" action="action_dieu_chuyen_tai_san" sequence="3"/>
+        <menuitem id="menu_thanh_ly_tai_san" name="Thanh lý tài sản" parent="menu_quan_ly_tai_san_root" action="action_thanh_ly_tai_san" sequence="4"/>
+        <menuitem id="menu_danh_muc_tai_san" name="Danh mục" parent="menu_quan_ly_tai_san_root" sequence="10"/>
+        <menuitem id="menu_loai_tai_san" name="Loại tài sản" parent="menu_danh_muc_tai_san" action="action_loai_tai_san" sequence="1"/>
+    </data>
+</odoo>

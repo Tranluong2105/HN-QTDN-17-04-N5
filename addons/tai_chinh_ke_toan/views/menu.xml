@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <menuitem id="menu_tai_chinh_ke_toan_root" name="Tài chính - Kế toán" sequence="30"/>
+        <menuitem id="menu_ho_so_khau_hao" name="Hồ sơ khấu hao" parent="menu_tai_chinh_ke_toan_root" action="action_ho_so_khau_hao" sequence="1"/>
+        <menuitem id="menu_lich_su_khau_hao" name="Lịch sử khấu hao" parent="menu_tai_chinh_ke_toan_root" action="action_lich_su_khau_hao" sequence="2"/>
+        <menuitem id="menu_but_toan_ke_toan" name="Sổ cái kế toán" parent="menu_tai_chinh_ke_toan_root" action="action_so_cai_ke_toan" sequence="3"/>
+    </data>
+</odoo>

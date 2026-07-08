@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_ho_so_khau_hao_form" model="ir.ui.view">
+            <field name="name">ho_so_khau_hao</field>
+            <field name="model">ho_so_khau_hao</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="action_bat_dau_khau_hao" string="Bắt đầu khấu hao" type="object" attrs="{'invisible': [('trang_thai', '!=', 'chua_khau_hao')]}" class="oe_highlight"/>
+                        <button name="action_gui_canh_bao_30_ngay" string="Gửi cảnh báo 30 ngày" type="object" attrs="{'invisible': [('trang_thai', '!=', 'dang_khau_hao')]}"/>
+                        <button name="action_dung_khau_hao" string="Dừng khấu hao" type="object" attrs="{'invisible': [('trang_thai', '!=', 'dang_khau_hao')]}"/>
+                        <button name="action_hoan_thanh" string="Hoàn thành" type="object" attrs="{'invisible': [('trang_thai', 'not in', ['dang_khau_hao', 'dung'])]}"/>
+                        <field name="trang_thai" widget="statusbar" statusbar_visible="chua_khau_hao,dang_khau_hao,dung,hoan_thanh"/>
+                    </header>
+                    <sheet>
+                        <group col="4" string="Tài sản">
+                            <field name="tai_san_id"/>
+                            <field name="nguyen_gia"/>
+                            <field name="gia_tri_thu_hoi"/>
+                            <field name="thoi_gian_khau_hao"/>
+                            <field name="ngay_bat_dau_khau_hao" readonly="1"/>
+                        </group>
+                        <group col="4" string="Khấu hao">
+                            <field name="gia_tri_phai_khau_hao"/>
+                            <field name="khau_hao_hang_thang"/>
+                            <field name="khau_hao_luy_ke"/>
+                            <field name="gia_tri_con_lai"/>
+                            <field name="so_thang_da_khau_hao"/>
+                            <field name="so_thang_con_lai"/>
+                            <field name="ngay_du_kien_hoan_thanh"/>
+                            <field name="tong_da_ghi_so"/>
+                            <field name="da_gui_canh_bao_30_ngay"/>
+                        </group>
+                        <notebook>
+                            <page string="Lịch sử khấu hao">
+                                <field name="lich_su_khau_hao_ids"/>
+                            </page>
+                            <page string="Sổ cái kế toán">
+                                <field name="so_cai_ke_toan_ids"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_ho_so_khau_hao_tree" model="ir.ui.view">
+            <field name="name">ho_so_khau_hao</field>
+            <field name="model">ho_so_khau_hao</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="tai_san_id"/>
+                    <field name="nguyen_gia"/>
+                    <field name="gia_tri_thu_hoi"/>
+                    <field name="thoi_gian_khau_hao"/>
+                    <field name="ngay_bat_dau_khau_hao"/>
+                    <field name="khau_hao_hang_thang"/>
+                    <field name="khau_hao_luy_ke"/>
+                    <field name="gia_tri_con_lai"/>
+                    <field name="trang_thai"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="ho_so_khau_hao_search" model="ir.ui.view">
+            <field name="name">ho_so_khau_hao_search</field>
+            <field name="model">ho_so_khau_hao</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="tai_san_id"/>
+                    <filter string="Đang khấu hao" name="dang_khau_hao" domain="[('trang_thai','=','dang_khau_hao')]"/>
+                    <filter string="Hoàn thành" name="hoan_thanh" domain="[('trang_thai','=','hoan_thanh')]"/>
+                    <group expand="0" string="Nhóm">
+                        <filter string="Trạng thái" name="group_trang_thai" context="{'group_by':'trang_thai'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_ho_so_khau_hao" model="ir.actions.act_window">
+            <field name="name">Hồ sơ khấu hao</field>
+            <field name="res_model">ho_so_khau_hao</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="ho_so_khau_hao_search"/>
+        </record>
+    </data>
+</odoo>

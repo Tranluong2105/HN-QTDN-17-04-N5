@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_so_cai_ke_toan_form" model="ir.ui.view">
+            <field name="name">so_cai_ke_toan</field>
+            <field name="model">so_cai_ke_toan</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group col="4" string="Thông tin ghi sổ">
+                            <field name="ngay_ghi_so"/>
+                            <field name="loai_giao_dich"/>
+                            <field name="ho_so_khau_hao_id"/>
+                            <field name="tai_san_id"/>
+                        </group>
+                        <group col="4" string="Tài khoản">
+                            <field name="tai_khoan_no"/>
+                            <field name="tai_khoan_co"/>
+                            <field name="phat_sinh_no"/>
+                            <field name="phat_sinh_co"/>
+                        </group>
+                        <group string="Diễn giải">
+                            <field name="dien_giai"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_so_cai_ke_toan_tree" model="ir.ui.view">
+            <field name="name">so_cai_ke_toan</field>
+            <field name="model">so_cai_ke_toan</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="ngay_ghi_so"/>
+                    <field name="loai_giao_dich"/>
+                    <field name="tai_san_id"/>
+                    <field name="tai_khoan_no"/>
+                    <field name="tai_khoan_co"/>
+                    <field name="phat_sinh_no"/>
+                    <field name="phat_sinh_co"/>
+                    <field name="dien_giai"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="so_cai_ke_toan_search" model="ir.ui.view">
+            <field name="name">so_cai_ke_toan_search</field>
+            <field name="model">so_cai_ke_toan</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="tai_san_id"/>
+                    <field name="loai_giao_dich"/>
+                    <field name="ngay_ghi_so"/>
+                    <field name="tai_khoan_no"/>
+                    <field name="tai_khoan_co"/>
+                    <group expand="0" string="Nhóm">
+                        <filter string="Loại giao dịch" name="group_loai" context="{'group_by':'loai_giao_dich'}"/>
+                        <filter string="Tài sản" name="group_tai_san" context="{'group_by':'tai_san_id'}"/>
+                        <filter string="Ngày ghi sổ" name="group_ngay_ghi_so" context="{'group_by':'ngay_ghi_so'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_so_cai_ke_toan" model="ir.actions.act_window">
+            <field name="name">Sổ cái kế toán</field>
+            <field name="res_model">so_cai_ke_toan</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="so_cai_ke_toan_search"/>
+        </record>
+    </data>
+</odoo>

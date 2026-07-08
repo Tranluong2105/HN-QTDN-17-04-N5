@@ -19,17 +19,23 @@
             sequence="1"
         />
 
-        <menuitem name="Danh mục đơn vị" 
-            id="menu_don_vi" 
+        <menuitem name="Danh mục phòng ban" 
+            id="menu_phong_ban" 
             parent="menu_danh_muc_chung" 
             sequence="1"
-            action="action_don_vi"
+            action="action_phong_ban"
         />
         <menuitem name="Danh mục chức vụ" 
             id="menu_chuc_vu" 
             parent="menu_danh_muc_chung" 
             sequence="2"
             action="action_chuc_vu"
+        />
+        <menuitem name="Danh mục đơn vị" 
+            id="menu_don_vi" 
+            parent="menu_danh_muc_chung" 
+            sequence="3"
+            action="action_don_vi"
         />
         <menuitem name="Danh mục chứng chỉ, bằng cấp" 
             id="menu_chung_chi_bang_cap" 

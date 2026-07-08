@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ho_so_khau_hao,ho_so_khau_hao.ho_so_khau_hao,model_ho_so_khau_hao,base.group_user,1,1,1,1
+access_lich_su_khau_hao,lich_su_khau_hao.lich_su_khau_hao,model_lich_su_khau_hao,base.group_user,1,1,1,1
+access_so_cai_ke_toan,so_cai_ke_toan.so_cai_ke_toan,model_so_cai_ke_toan,base.group_user,1,1,1,1

@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_yeu_cau_cap_tai_san,yeu_cau_cap_tai_san.yeu_cau_cap_tai_san,model_yeu_cau_cap_tai_san,base.group_user,1,1,1,1
+access_loai_tai_san,loai_tai_san.loai_tai_san,model_loai_tai_san,base.group_user,1,1,1,1
+access_tai_san,tai_san.tai_san,model_tai_san,base.group_user,1,1,1,1
+access_dieu_chuyen_tai_san,dieu_chuyen_tai_san.dieu_chuyen_tai_san,model_dieu_chuyen_tai_san,base.group_user,1,1,1,1
+access_thanh_ly_tai_san,thanh_ly_tai_san.thanh_ly_tai_san,model_thanh_ly_tai_san,base.group_user,1,1,1,1

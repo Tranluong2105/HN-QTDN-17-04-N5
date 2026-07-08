@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_tai_san_form" model="ir.ui.view">
+            <field name="name">tai_san</field>
+            <field name="model">tai_san</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group col="4" string="Thông tin cơ bản">
+                            <field name="ma_tai_san" string="Mã tài sản"/>
+                            <field name="ten_tai_san" string="Tên tài sản"/>
+                            <field name="loai_tai_san_id" string="Loại tài sản" required="1"/>
+                            <field name="ngay_tao_tai_san" string="Ngày tạo tài sản"/>
+                            <field name="yeu_cau_id" string="Yêu cầu cấp tài sản"/>
+                        </group>
+                        <group col="4" string="Tài chính">
+                            <field name="nguyen_gia" string="Nguyên giá"/>
+                            <field name="gia_tri_thu_hoi" string="Giá trị thu hồi"/>
+                            <field name="trang_thai_khau_hao" string="Trạng thái khấu hao"/>
+                            <field name="trang_thai_su_dung" string="Trạng thái sử dụng"/>
+                        </group>
+                        <group col="4" string="Sử dụng">
+                            <field name="nhan_vien_su_dung_id" string="Nhân viên sử dụng"/>
+                            <field name="phong_ban_id" string="Phòng ban"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_tai_san_tree" model="ir.ui.view">
+            <field name="name">tai_san</field>
+            <field name="model">tai_san</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="ma_tai_san" string="Mã tài sản"/>
+                    <field name="ten_tai_san" string="Tên tài sản"/>
+                    <field name="loai_tai_san_id" string="Loại tài sản"/>
+                    <field name="ngay_tao_tai_san" string="Ngày tạo tài sản"/>
+                    <field name="nguyen_gia" string="Nguyên giá"/>
+                    <field name="nhan_vien_su_dung_id" string="Nhân viên sử dụng"/>
+                    <field name="phong_ban_id" string="Phòng ban"/>
+                    <field name="trang_thai_khau_hao" string="Trạng thái khấu hao"/>
+                    <field name="trang_thai_su_dung" string="Trạng thái sử dụng"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="tai_san_search" model="ir.ui.view">
+            <field name="name">tai_san_search</field>
+            <field name="model">tai_san</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="ma_tai_san"/>
+                    <field name="ten_tai_san"/>
+                    <field name="loai_tai_san_id"/>
+                    <field name="phong_ban_id"/>
+                    <filter string="Chưa khấu hao" name="chua_khau_hao" domain="[('trang_thai_khau_hao','=','chua_khau_hao')]"/>
+                    <group expand="0" string="Nhóm">
+                        <filter string="Khấu hao" name="group_khau_hao" context="{'group_by':'trang_thai_khau_hao'}"/>
+                        <filter string="Phòng ban" name="group_phong_ban" context="{'group_by':'phong_ban_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_tai_san" model="ir.actions.act_window">
+            <field name="name">Tài sản</field>
+            <field name="res_model">tai_san</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="tai_san_search"/>
+        </record>
+    </data>
+</odoo>
