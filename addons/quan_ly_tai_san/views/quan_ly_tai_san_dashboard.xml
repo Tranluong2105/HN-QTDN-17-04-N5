@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_quan_ly_tai_san_dashboard_form" model="ir.ui.view">
+            <field name="name">quan_ly_tai_san_dashboard_form</field>
+            <field name="model">quan_ly_tai_san_dashboard</field>
+            <field name="arch" type="xml">
+                <form create="false" edit="false" delete="false">
+                    <sheet style="background:#f6f8fb; padding:18px;">
+                        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:18px;">
+                            <div>
+                                <h1 style="margin:0; font-weight:700; color:#2f3b52;">
+                                    <field name="name" readonly="1"/>
+                                </h1>
+                                <p style="margin:4px 0 0 0; color:#748094;">Tổng quan cấp phát, sử dụng, khấu hao và thanh lý tài sản</p>
+                            </div>
+                        </div>
+
+                        <div style="display:grid; grid-template-columns:repeat(4, minmax(180px, 1fr)); gap:14px; margin-bottom:18px;">
+                            <button type="object" name="action_open_assets" style="border:0; text-align:left; border-radius:10px; padding:18px; background:#fde2d8; box-shadow:0 6px 18px rgba(31,45,61,.08);">
+                                <div style="font-size:13px; color:#9b4d31; font-weight:700;">TỔNG TÀI SẢN</div>
+                                <div style="font-size:32px; color:#8c2f1b; font-weight:800;">
+                                    <field name="tong_tai_san"/>
+                                </div>
+                            </button>
+                            <button type="object" name="action_open_assets_in_use" style="border:0; text-align:left; border-radius:10px; padding:18px; background:#e7ddfb; box-shadow:0 6px 18px rgba(31,45,61,.08);">
+                                <div style="font-size:13px; color:#5c4a8d; font-weight:700;">ĐANG SỬ DỤNG</div>
+                                <div style="font-size:32px; color:#44307d; font-weight:800;">
+                                    <field name="tai_san_dang_su_dung"/>
+                                </div>
+                            </button>
+                            <button type="object" name="action_open_depreciating_assets" style="border:0; text-align:left; border-radius:10px; padding:18px; background:#f7dce5; box-shadow:0 6px 18px rgba(31,45,61,.08);">
+                                <div style="font-size:13px; color:#9b3c5c; font-weight:700;">ĐANG KHẤU HAO</div>
+                                <div style="font-size:32px; color:#8c244a; font-weight:800;">
+                                    <field name="tai_san_dang_khau_hao"/>
+                                </div>
+                            </button>
+                            <button type="object" name="action_open_assets_liquidated" style="border:0; text-align:left; border-radius:10px; padding:18px; background:#dcecff; box-shadow:0 6px 18px rgba(31,45,61,.08);">
+                                <div style="font-size:13px; color:#2b5b93; font-weight:700;">ĐÃ THANH LÝ</div>
+                                <div style="font-size:32px; color:#1d4f8c; font-weight:800;">
+                                    <field name="tai_san_da_thanh_ly"/>
+                                </div>
+                            </button>
+                        </div>
+
+                        <div style="display:grid; grid-template-columns:repeat(4, minmax(180px, 1fr)); gap:14px; margin-bottom:22px;">
+                            <div style="text-align:left; border-radius:10px; padding:18px; background:#dff5df; box-shadow:0 6px 18px rgba(31,45,61,.08);">
+                                <div style="font-size:13px; color:#2d7a39; font-weight:700;">CHƯA KHẤU HAO</div>
+                                <div style="font-size:30px; color:#1e6d2a; font-weight:800;">
+                                    <field name="tai_san_chua_khau_hao"/>
+                                </div>
+                            </div>
+                            <div style="text-align:left; border-radius:10px; padding:18px; background:#d7eefc; box-shadow:0 6px 18px rgba(31,45,61,.08);">
+                                <div style="font-size:13px; color:#216485; font-weight:700;">KHẤU HAO XONG</div>
+                                <div style="font-size:30px; color:#0d5f83; font-weight:800;">
+                                    <field name="tai_san_khau_hao_xong"/>
+                                </div>
+                            </div>
+                            <div style="text-align:left; border-radius:10px; padding:18px; background:#fff1cf; box-shadow:0 6px 18px rgba(31,45,61,.08);">
+                                <div style="font-size:13px; color:#9c6a11; font-weight:700;">TỔNG NGUYÊN GIÁ</div>
+                                <div style="font-size:30px; color:#8a5800; font-weight:800;">
+                                    <field name="tong_nguyen_gia"/>
+                                </div>
+                            </div>
+                            <div style="text-align:left; border-radius:10px; padding:18px; background:#f6dada; box-shadow:0 6px 18px rgba(31,45,61,.08);">
+                                <div style="font-size:13px; color:#9b3838; font-weight:700;">GIÁ TRỊ THANH LÝ</div>
+                                <div style="font-size:30px; color:#8d2020; font-weight:800;">
+                                    <field name="tong_gia_tri_thanh_ly"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="display:grid; grid-template-columns:1.1fr 1fr; gap:18px;">
+                            <div style="background:#ffffff; border-radius:10px; padding:18px; box-shadow:0 6px 18px rgba(31,45,61,.08);">
+                                <h3 style="margin:0 0 14px 0; color:#2f3b52;">Chỉ số tài chính tài sản</h3>
+                                <group col="2">
+                                    <field name="tong_nguyen_gia" readonly="1"/>
+                                    <field name="tai_san_dang_su_dung" readonly="1"/>
+                                    <field name="tong_gia_tri_thanh_ly" readonly="1"/>
+                                </group>
+                            </div>
+                            <div style="background:#ffffff; border-radius:10px; padding:18px; box-shadow:0 6px 18px rgba(31,45,61,.08);">
+                                <h3 style="margin:0 0 14px 0; color:#2f3b52;">Trạng thái khấu hao</h3>
+                                <group col="2">
+                                    <field name="tai_san_chua_khau_hao" readonly="1"/>
+                                    <field name="tai_san_dang_khau_hao" readonly="1"/>
+                                    <field name="tai_san_khau_hao_xong" readonly="1"/>
+                                    <field name="tai_san_da_thanh_ly" readonly="1"/>
+                                </group>
+                            </div>
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_quan_ly_tai_san_dashboard" model="ir.actions.act_window">
+            <field name="name">Dashboard quản lý tài sản</field>
+            <field name="res_model">quan_ly_tai_san_dashboard</field>
+            <field name="view_mode">form</field>
+            <field name="res_id" ref="record_quan_ly_tai_san_dashboard"/>
+            <field name="target">current</field>
+        </record>
+    </data>
+</odoo>

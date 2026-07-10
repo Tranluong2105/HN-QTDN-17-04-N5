@@ -22,6 +22,7 @@
                         </group>
                         <group col="4" string="Sử dụng">
                             <field name="nhan_vien_su_dung_id" string="Nhân viên sử dụng"/>
+                            <field name="nguoi_quan_ly_id" string="Người quản lý tài sản"/>
                             <field name="phong_ban_id" string="Phòng ban"/>
                         </group>
                     </sheet>
@@ -40,6 +41,7 @@
                     <field name="ngay_tao_tai_san" string="Ngày tạo tài sản"/>
                     <field name="nguyen_gia" string="Nguyên giá"/>
                     <field name="nhan_vien_su_dung_id" string="Nhân viên sử dụng"/>
+                    <field name="nguoi_quan_ly_id" string="Người quản lý tài sản"/>
                     <field name="phong_ban_id" string="Phòng ban"/>
                     <field name="trang_thai_khau_hao" string="Trạng thái khấu hao"/>
                     <field name="trang_thai_su_dung" string="Trạng thái sử dụng"/>

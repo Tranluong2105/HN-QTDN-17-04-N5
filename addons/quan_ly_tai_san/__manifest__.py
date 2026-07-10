@@ -9,7 +9,10 @@
     'depends': ['base', 'nhan_su'],
     'data': [
         'data/sequence.xml',
+        'data/dashboard.xml',
         'security/ir.model.access.csv',
+        'views/quan_ly_tai_san_dashboard.xml',
+        'views/cau_hinh_telegram_tai_san.xml',
         'views/loai_tai_san.xml',
         'views/yeu_cau_cap_tai_san.xml',
         'views/tai_san.xml',

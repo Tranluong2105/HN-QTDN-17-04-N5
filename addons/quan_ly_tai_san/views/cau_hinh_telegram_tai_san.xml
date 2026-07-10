@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_cau_hinh_telegram_tai_san_form" model="ir.ui.view">
+            <field name="name">cau_hinh_telegram_tai_san_form</field>
+            <field name="model">cau_hinh_telegram_tai_san</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="action_gui_thu_telegram" type="object" string="Gửi thử Telegram" class="oe_highlight"/>
+                    </header>
+                    <sheet>
+                        <group string="Thông tin Telegram" col="4">
+                            <field name="ten_cau_hinh"/>
+                            <field name="active"/>
+                            <field name="bot_token" password="True"/>
+                            <field name="chat_id"/>
+                            <field name="bo_qua_xac_thuc_ssl"/>
+                            <field name="sequence"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_cau_hinh_telegram_tai_san_tree" model="ir.ui.view">
+            <field name="name">cau_hinh_telegram_tai_san_tree</field>
+            <field name="model">cau_hinh_telegram_tai_san</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="sequence" widget="handle"/>
+                    <field name="ten_cau_hinh"/>
+                    <field name="chat_id"/>
+                    <field name="bo_qua_xac_thuc_ssl"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_cau_hinh_telegram_tai_san" model="ir.actions.act_window">
+            <field name="name">Cấu hình Telegram</field>
+            <field name="res_model">cau_hinh_telegram_tai_san</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    </data>
+</odoo>

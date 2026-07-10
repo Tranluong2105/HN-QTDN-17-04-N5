@@ -70,13 +70,16 @@ class ThanhLyTaiSan(models.Model):
         return super().write(vals)
 
     def action_duyet(self):
-        for record in self:
+        records_to_approve = self.filtered(lambda record: record.trang_thai != "da_duyet")
+        for record in records_to_approve:
             record._check_asset_can_be_liquidated(record.tai_san_id)
             if not record.gia_tri_thanh_ly:
                 record.gia_tri_thanh_ly = record._get_gia_tri_con_lai()
+            record.nguoi_duyet_id = self.env.user
             record.trang_thai = "da_duyet"
             record.tai_san_id.trang_thai_su_dung = "thanh_ly"
             record.tai_san_id.trang_thai_khau_hao = "da_thanh_ly"
+            record.tai_san_id._gui_telegram_tai_san_da_thanh_ly(liquidation=record)
 
     def action_tu_choi(self):
         self.write({"trang_thai": "tu_choi"})

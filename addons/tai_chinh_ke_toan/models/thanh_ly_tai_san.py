@@ -5,8 +5,9 @@ class ThanhLyTaiSan(models.Model):
     _inherit = "thanh_ly_tai_san"
 
     def action_duyet(self):
+        records_to_account = self.filtered(lambda record: record.trang_thai != "da_duyet")
         result = super().action_duyet()
-        for record in self:
+        for record in records_to_account:
             profile = self.env["ho_so_khau_hao"].search([
                 ("tai_san_id", "=", record.tai_san_id.id),
             ], limit=1)

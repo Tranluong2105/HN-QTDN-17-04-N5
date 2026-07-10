@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="record_quan_ly_tai_san_dashboard" model="quan_ly_tai_san_dashboard">
+            <field name="name">Dashboard quản lý tài sản</field>
+        </record>
+    </data>
+</odoo>

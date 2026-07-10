@@ -110,6 +110,7 @@ class YeuCauCapTaiSan(models.Model):
                     "nguyen_gia": unit_value,
                     "ngay_tao_tai_san": asset_date,
                     "nhan_vien_su_dung_id": record.nhan_vien_yeu_cau_id.id,
+                    "nguoi_quan_ly_id": record.nhan_vien_yeu_cau_id.id,
                     "phong_ban_id": record.phong_ban_id.id,
                     "yeu_cau_id": record.id,
                 })

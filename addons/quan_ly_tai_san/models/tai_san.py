@@ -15,6 +15,7 @@ class TaiSan(models.Model):
     nguyen_gia = fields.Float("Nguyên giá", required=True)
     gia_tri_thu_hoi = fields.Float("Giá trị thu hồi")
     nhan_vien_su_dung_id = fields.Many2one("nhan_vien", string="Nhân viên sử dụng")
+    nguoi_quan_ly_id = fields.Many2one("nhan_vien", string="Người quản lý tài sản")
     phong_ban_id = fields.Many2one("phong_ban", string="Phòng ban")
     trang_thai_khau_hao = fields.Selection(
         [
@@ -46,6 +47,8 @@ class TaiSan(models.Model):
     def _onchange_nhan_vien_su_dung_id(self):
         for record in self:
             record.phong_ban_id = record.nhan_vien_su_dung_id.phong_ban_id
+            if not record.nguoi_quan_ly_id:
+                record.nguoi_quan_ly_id = record.nhan_vien_su_dung_id
 
     @api.onchange("yeu_cau_id")
     def _onchange_yeu_cau_id(self):
@@ -58,6 +61,7 @@ class TaiSan(models.Model):
             record.nguyen_gia = record._get_nguyen_gia_tu_yeu_cau(record.yeu_cau_id)
             record.ngay_tao_tai_san = record.yeu_cau_id._get_ngay_tao_tai_san()
             record.nhan_vien_su_dung_id = record.yeu_cau_id.nhan_vien_yeu_cau_id
+            record.nguoi_quan_ly_id = record.yeu_cau_id.nhan_vien_yeu_cau_id
             record.phong_ban_id = record.yeu_cau_id.phong_ban_id
 
     @api.model
@@ -67,16 +71,21 @@ class TaiSan(models.Model):
         self._sync_request_vals(vals)
         if vals.get("nhan_vien_su_dung_id") and not vals.get("phong_ban_id"):
             vals["phong_ban_id"] = self.env["nhan_vien"].browse(vals["nhan_vien_su_dung_id"]).phong_ban_id.id
+        if vals.get("nhan_vien_su_dung_id") and not vals.get("nguoi_quan_ly_id"):
+            vals["nguoi_quan_ly_id"] = vals["nhan_vien_su_dung_id"]
         self._sync_asset_type_vals(vals)
         record = super().create(vals)
         if record.yeu_cau_id and record.yeu_cau_id.trang_thai != "da_tao_tai_san":
             record.yeu_cau_id.trang_thai = "da_tao_tai_san"
+        record._gui_telegram_tai_san_duoc_tao()
         return record
 
     def write(self, vals):
         self._sync_request_vals(vals)
         if vals.get("nhan_vien_su_dung_id") and "phong_ban_id" not in vals:
             vals["phong_ban_id"] = self.env["nhan_vien"].browse(vals["nhan_vien_su_dung_id"]).phong_ban_id.id
+        if vals.get("nhan_vien_su_dung_id") and "nguoi_quan_ly_id" not in vals:
+            vals["nguoi_quan_ly_id"] = vals["nhan_vien_su_dung_id"]
         self._sync_asset_type_vals(vals)
         return super().write(vals)
 
@@ -90,6 +99,7 @@ class TaiSan(models.Model):
         vals.setdefault("nguyen_gia", self._get_nguyen_gia_tu_yeu_cau(request))
         vals.setdefault("ngay_tao_tai_san", request._get_ngay_tao_tai_san())
         vals.setdefault("nhan_vien_su_dung_id", request.nhan_vien_yeu_cau_id.id)
+        vals.setdefault("nguoi_quan_ly_id", request.nhan_vien_yeu_cau_id.id)
         vals.setdefault("phong_ban_id", request.phong_ban_id.id)
 
     def _get_nguyen_gia_tu_yeu_cau(self, request):
@@ -104,3 +114,43 @@ class TaiSan(models.Model):
             if not asset_type:
                 asset_type = self.env["loai_tai_san"].create({"ten_loai_tai_san": vals["loai_tai_san"]})
             vals["loai_tai_san_id"] = asset_type.id
+
+    def _gui_telegram_tai_san_duoc_tao(self):
+        for record in self:
+            record._gui_telegram_tai_san("TÀI SẢN ĐƯỢC TẠO")
+
+    def _gui_telegram_tai_san_da_thanh_ly(self, liquidation=False):
+        for record in self:
+            record._gui_telegram_tai_san("TÀI SẢN ĐÃ THANH LÝ", liquidation=liquidation)
+
+    def _gui_telegram_tai_san(self, tieu_de, liquidation=False):
+        configs = self.env["cau_hinh_telegram_tai_san"].sudo().search([("active", "=", True)])
+        if not configs:
+            return
+        for record in self:
+            configs.gui_tin_nhan(record._get_telegram_message(tieu_de, liquidation=liquidation))
+
+    def _get_telegram_message(self, tieu_de, liquidation=False):
+        self.ensure_one()
+        lines = [
+            tieu_de,
+            "Mã tài sản: %s" % (self.ma_tai_san or ""),
+            "Tên tài sản: %s" % (self.ten_tai_san or ""),
+            "Loại tài sản: %s" % (self.loai_tai_san_id.ten_loai_tai_san or self.loai_tai_san or ""),
+            "Ngày tạo tài sản: %s" % (self.ngay_tao_tai_san or ""),
+            "Nguyên giá: %s" % (self.nguyen_gia or 0),
+            "Giá trị thu hồi: %s" % (self.gia_tri_thu_hoi or 0),
+            "Nhân viên sử dụng: %s" % (self.nhan_vien_su_dung_id.ho_ten_day_du or ""),
+            "Người quản lý tài sản: %s" % (self.nguoi_quan_ly_id.ho_ten_day_du or ""),
+            "Phòng ban: %s" % (self.phong_ban_id.ten_phong_ban or ""),
+            "Trạng thái khấu hao: %s" % dict(self._fields["trang_thai_khau_hao"].selection).get(self.trang_thai_khau_hao, ""),
+            "Trạng thái sử dụng: %s" % dict(self._fields["trang_thai_su_dung"].selection).get(self.trang_thai_su_dung, ""),
+        ]
+        if liquidation:
+            lines.extend([
+                "Giá trị thanh lý: %s" % (liquidation.gia_tri_thanh_ly or 0),
+                "Ngày thanh lý: %s" % (fields.Date.context_today(liquidation)),
+                "Người duyệt thanh lý: %s" % (liquidation.nguoi_duyet_id.name or self.env.user.name or ""),
+                "Lý do thanh lý: %s" % (liquidation.ly_do or ""),
+            ])
+        return "\n".join(lines)
